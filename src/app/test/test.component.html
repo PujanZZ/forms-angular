@@ -1,0 +1,127 @@
+<div class="test1">
+  <form [formGroup]="carForm" (ngSubmit)="onSubmit()">
+    <p>Name</p>
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input formControlName="name" matInput />
+      <!-- <mat-error
+        *ngIf="
+          (carForm.get('name').touched || carForm.get('name').dirty) &&
+          carForm.get('name').hasError('required')
+        "
+        >Name is <strong>required</strong></mat-error
+      > -->
+      <mat-error *ngIf="formErrors.name">{{ formErrors.name }}</mat-error>
+      <br />
+
+      <!-- <mat-error
+        *ngIf="
+          carForm.get('name').hasError('minlength') ||
+          carForm.get('name').hasError('maxlength')
+        "
+        >Min 2 Max 10</mat-error
+      > -->
+    </mat-form-field>
+    <div>
+      <mat-radio-group formControlName="pref" aria-label="Select an option">
+        <mat-radio-button value="email" (click)="onContact('email')"
+          >Email</mat-radio-button
+        >
+        <mat-radio-button value="phone" (click)="onContact('phone')"
+          >Phone</mat-radio-button
+        >
+      </mat-radio-group>
+    </div>
+    <p>Email</p>
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input
+        formControlName="email"
+        matInput
+        type="email"
+        placeholder="Ex. pat@example.com"
+      />
+      <!-- <mat-error *ngIf="carForm.get('email').hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="carForm.get('email').hasError('email')">
+        Email is <strong>invalid</strong>
+      </mat-error> -->
+      <mat-error *ngIf="formErrors.email">
+        {{ formErrors.email }}
+      </mat-error>
+    </mat-form-field>
+    <p>Phone</p>
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>Telephone</mat-label>
+        <span matPrefix>+91 &nbsp;</span>
+        <input
+          formControlName="phone"
+          type="number"
+          matInput
+          placeholder="111-111-1110"
+        />
+        <mat-error *ngIf="formErrors.phone">
+          {{ formErrors.phone }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <p>Skill</p>
+    <div formGroupName="skills">
+      <div class="test3">
+        <mat-form-field appearance="fill">
+          <mat-label>Skill</mat-label>
+          <input formControlName="skillName" matInput />
+          <mat-error *ngIf="formErrors.skillName">
+            {{ formErrors.skillName }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Experience in years</mat-label>
+          <input formControlName="experienceInYears" matInput type="number" />
+          <!-- <mat-error
+            *ngIf="carForm.get('skills.experienceInYears').hasError('required')"
+            >Number is <strong>required</strong>
+          </mat-error> -->
+          <mat-error *ngIf="formErrors.experienceInYears">
+            {{ formErrors.experienceInYears }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <p>Skill Level</p>
+        <mat-radio-group formControlName="level" aria-label="Select an option">
+          <mat-radio-button value="Easy">Easy</mat-radio-button>
+          <mat-radio-button value="Medium">Medium</mat-radio-button>
+          <mat-radio-button value="Hard">Hard</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <br />
+    </div>
+    <div class="sbtn">
+      <button mat-raised-button color="primary" style="margin-right: 16px">
+        Submit
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="onLoad()"
+        style="margin-right: 16px"
+      >
+        Load Data
+      </button>
+      <button mat-raised-button color="secondary" (click)="onKey()">
+        Load Key
+      </button>
+    </div>
+  </form>
+</div>
+
+<div class="test2">
+  <p><b>Name:</b> {{ carForm.get('name').value }}</p>
+  <p><b>Email</b>: {{ carForm.get('email').value }}</p>
+  <p>{{ carForm.value | json }}</p>
+  <p>Skill: {{ this.carForm.get('skills').value.level }}</p>
+</div>
