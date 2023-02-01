@@ -125,7 +125,7 @@ export class TestComponent implements OnInit {
   }
 
   onSubmit(): void {
-    //console.log(this.carForm);
+    console.log(this.carForm);
     //console.log(this.carForm.controls.name.status);
     //console.log(this.carForm.get('email').touched);  //.value etc
     //console.log(this.carForm.get('skills').value.level);
