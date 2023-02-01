@@ -25,7 +25,8 @@ export class TestComponent implements OnInit {
     },
     email: {
       required: 'Email is required',
-      email: 'invalid email format',
+      email: '',
+      emailDomain: 'Domain incorrect',
     },
     phone: {
       required: 'Phone number is required',
@@ -76,7 +77,7 @@ export class TestComponent implements OnInit {
         ],
       ],
       pref: ['email', []],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email, emailDomain]],
       phone: [''],
       skills: this.fb.group({
         skillName: ['', [Validators.required]],
@@ -163,7 +164,7 @@ function emailDomain(control: AbstractControl): { [key: string]: any } | null {
   const email: string = control.value;
   const domain = email.substring(email.lastIndexOf('@') + 1);
 
-  if (domain.toLowerCase() === 'gmail.com') {
+  if (email === '' || domain.toLowerCase() === 'gmail.com') {
     return null;
   } else {
     return {
