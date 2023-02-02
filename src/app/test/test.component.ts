@@ -33,7 +33,7 @@ export class TestComponent implements OnInit {
       required: 'Confirm email is Required',
     },
     emailGroup: {
-      emailMismatch: 'Email and ConfirmEmail does not match',
+      emailMismatch: 'Email and Confirm email does not match',
     },
     phone: {
       required: 'Phone number is required',
@@ -98,7 +98,7 @@ export class TestComponent implements OnInit {
           ],
           confirmEmail: ['', [Validators.required]],
         },
-        { validator: checkEmail }
+        { validators: checkEmail }
       ),
 
       phone: [''],
@@ -186,7 +186,10 @@ function checkEmail(group: AbstractControl): { [key: string]: any } | null {
   const emailControl = group.get('email');
   const confirmEmailControl = group.get('confirmEmail');
 
-  if (emailControl.value === confirmEmailControl.value) {
+  if (
+    emailControl.value === confirmEmailControl.value ||
+    confirmEmailControl.pristine
+  ) {
     return null;
   } else {
     return {

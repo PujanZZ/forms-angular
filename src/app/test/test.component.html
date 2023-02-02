@@ -58,8 +58,9 @@
       <mat-form-field>
         <mat-label>Confirm Email</mat-label>
         <input formControlName="confirmEmail" matInput type="email" />
-        <mat-error *ngIf="formErrors.confirmEmail">
+        <mat-error *ngIf="formErrors.confirmEmail || formErrors.emailGroup">
           {{ formErrors.confirmEmail }}
+          {{ formErrors.emailGroup }}
         </mat-error>
       </mat-form-field>
     </div>
