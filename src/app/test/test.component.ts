@@ -172,15 +172,15 @@ export class TestComponent implements OnInit {
 
   //setvalue for all values,patchvalue to update subset
   onLoad(): void {
-    this.carForm.patchValue({
-      name: 'xyz',
-      email: 'xyz@gmail.com',
-      skills: {
-        skillName: 'Cricket',
-        experienceInYears: '5',
-        level: 'Hard',
-      },
-    });
+    // this.carForm.patchValue({
+    //   name: 'xyz',
+    //   email: 'xyz@gmail.com',
+    //   skills: {
+    //     skillName: 'Cricket',
+    //     experienceInYears: '5',
+    //     level: 'Hard',
+    //   },
+    // });
 
     const formArray = new FormArray([
       new FormControl('Busy', Validators.required),
@@ -189,7 +189,7 @@ export class TestComponent implements OnInit {
       }),
       new FormArray([]),
     ]);
-    formArray.push(new FormControl('pushed', Validators.required));
+    formArray.push(new FormControl('pushed is added', Validators.required));
     console.log(formArray.at(3).value);
   }
 
