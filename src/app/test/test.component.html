@@ -138,6 +138,7 @@
       color="warn"
       (click)="addSkillButton()"
       type="button"
+      [disabled]="carForm.get('skills').invalid"
     >
       Add Skill
     </button>
