@@ -103,11 +103,7 @@ export class TestComponent implements OnInit {
       ),
 
       phone: [''],
-      skills: this.fb.group({
-        skillName: ['', [Validators.required]],
-        experienceInYears: ['', [Validators.required]],
-        level: ['', [Validators.required]],
-      }),
+      skills: this.fb.array([this.addSkill()]),
     });
 
     //this.carForm.valueChanges.subscribe(val=>this.carform.id === val.id)
@@ -116,6 +112,13 @@ export class TestComponent implements OnInit {
     });
   }
 
+  addSkill(): FormGroup {
+    return this.fb.group({
+      skillName: ['', [Validators.required]],
+      experienceInYears: ['', [Validators.required]],
+      level: ['', [Validators.required]],
+    });
+  }
   //
 
   logErrors(grp: FormGroup): void {
@@ -144,13 +147,14 @@ export class TestComponent implements OnInit {
         //to get nested formcontrol key, looping recursively
         this.logErrors(abstractControl);
       }
-    });
-  }
-  addSkill() {
-    return this.fb.group({
-      skillName: ['', [Validators.required]],
-      experienceInYears: ['', [Validators.required]],
-      level: ['', [Validators.required]],
+      if (abstractControl instanceof FormArray) {
+        //to get nested formcontrol key, looping recursively
+        for (const c of abstractControl.controls) {
+          if (c instanceof FormGroup) {
+            this.logErrors(c);
+          }
+        }
+      }
     });
   }
 

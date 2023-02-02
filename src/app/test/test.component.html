@@ -81,37 +81,42 @@
       </mat-form-field>
     </div>
     <p>Skill</p>
-    <div formGroupName="skills">
-      <div class="test3">
-        <mat-form-field appearance="fill">
-          <mat-label>Skill</mat-label>
-          <input formControlName="skillName" matInput />
-          <mat-error *ngIf="formErrors.skillName">
-            {{ formErrors.skillName }}
-          </mat-error>
-        </mat-form-field>
+    <div formArrayName="skills">
+      <div formGroupName="0">
+        <div class="test3">
+          <mat-form-field appearance="fill">
+            <mat-label>Skill</mat-label>
+            <input formControlName="skillName" matInput />
+            <mat-error *ngIf="formErrors.skillName">
+              {{ formErrors.skillName }}
+            </mat-error>
+          </mat-form-field>
 
-        <mat-form-field appearance="fill">
-          <mat-label>Experience in years</mat-label>
-          <input formControlName="experienceInYears" matInput type="number" />
-          <!-- <mat-error
+          <mat-form-field appearance="fill">
+            <mat-label>Experience in years</mat-label>
+            <input formControlName="experienceInYears" matInput type="number" />
+            <!-- <mat-error
             *ngIf="carForm.get('skills.experienceInYears').hasError('required')"
             >Number is <strong>required</strong>
           </mat-error> -->
-          <mat-error *ngIf="formErrors.experienceInYears">
-            {{ formErrors.experienceInYears }}
-          </mat-error>
-        </mat-form-field>
+            <mat-error *ngIf="formErrors.experienceInYears">
+              {{ formErrors.experienceInYears }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <p>Skill Level</p>
+          <mat-radio-group
+            formControlName="level"
+            aria-label="Select an option"
+          >
+            <mat-radio-button value="Easy">Easy</mat-radio-button>
+            <mat-radio-button value="Medium">Medium</mat-radio-button>
+            <mat-radio-button value="Hard">Hard</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <br />
       </div>
-      <div>
-        <p>Skill Level</p>
-        <mat-radio-group formControlName="level" aria-label="Select an option">
-          <mat-radio-button value="Easy">Easy</mat-radio-button>
-          <mat-radio-button value="Medium">Medium</mat-radio-button>
-          <mat-radio-button value="Hard">Hard</mat-radio-button>
-        </mat-radio-group>
-      </div>
-      <br />
     </div>
     <div class="sbtn">
       <button mat-raised-button color="primary" style="margin-right: 16px">
