@@ -29,6 +29,9 @@ export class TestComponent implements OnInit {
       email: '',
       emailDomain: 'Domain incorrect',
     },
+    confirmEmail: {
+      required: 'Required',
+    },
     phone: {
       required: 'Phone number is required',
     },
@@ -46,6 +49,7 @@ export class TestComponent implements OnInit {
   formErrors = {
     name: '',
     email: '',
+    confirmEmail: '',
     phone: '',
     skillName: '',
     experienceInYears: '',
@@ -86,6 +90,7 @@ export class TestComponent implements OnInit {
           CustomValidators.emailDomain('gmail.com'),
         ],
       ],
+      confirmEmail: ['', [Validators.required]],
       phone: [''],
       skills: this.fb.group({
         skillName: ['', [Validators.required]],
