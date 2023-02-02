@@ -109,7 +109,7 @@ export class TestComponent implements OnInit {
         level: ['', [Validators.required]],
       }),
     });
-    //
+
     //this.carForm.valueChanges.subscribe(val=>this.carform.id === val.id)
     const sub = this.carForm.valueChanges.subscribe((val) => {
       this.logErrors(this.carForm);
@@ -144,6 +144,13 @@ export class TestComponent implements OnInit {
         //to get nested formcontrol key, looping recursively
         this.logErrors(abstractControl);
       }
+    });
+  }
+  addSkill() {
+    return this.fb.group({
+      skillName: ['', [Validators.required]],
+      experienceInYears: ['', [Validators.required]],
+      level: ['', [Validators.required]],
     });
   }
 
