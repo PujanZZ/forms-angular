@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
+  FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -109,8 +110,8 @@ export class TestComponent implements OnInit {
       }),
     });
     //
-
-    this.carForm.valueChanges.subscribe((val) => {
+    //this.carForm.valueChanges.subscribe(val=>this.carform.id === val.id)
+    const sub = this.carForm.valueChanges.subscribe((val) => {
       this.logErrors(this.carForm);
     });
   }
@@ -147,7 +148,7 @@ export class TestComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.carForm);
+    //console.log(this.carForm);
     //console.log(this.carForm.controls.name.status);
     //console.log(this.carForm.get('email').touched);  //.value etc
     //console.log(this.carForm.get('skills').value.level);
@@ -169,6 +170,16 @@ export class TestComponent implements OnInit {
         level: 'Hard',
       },
     });
+
+    const formArray = new FormArray([
+      new FormControl('Busy', Validators.required),
+      new FormGroup({
+        country: new FormControl('', Validators.required),
+      }),
+      new FormArray([]),
+    ]);
+    formArray.push(new FormControl('pushed', Validators.required));
+    console.log(formArray.at(3).value);
   }
 
   onContact(selectedValue: string) {
