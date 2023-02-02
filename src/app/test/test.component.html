@@ -92,7 +92,7 @@
             <input formControlName="skillName" matInput />
             <mat-error
               *ngIf="
-                skill.get('skillName').errors.required &&
+                skill.get('skillName').errors?.required &&
                 skill.get('skillName').touched
               "
             >
@@ -109,7 +109,7 @@
           </mat-error> -->
             <mat-error
               *ngIf="
-                skill.get('experienceInYears').errors.required &&
+                skill.get('experienceInYears').errors?.required &&
                 skill.get('experienceInYears').touched
               "
             >
