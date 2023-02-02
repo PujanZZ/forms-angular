@@ -7,6 +7,7 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
+import { CustomValidators } from '../shared/custom-validators';
 
 @Component({
   selector: 'app-test',
@@ -79,7 +80,11 @@ export class TestComponent implements OnInit {
       pref: ['email', []],
       email: [
         '',
-        [Validators.required, Validators.email, emailDomain('gmail.com')],
+        [
+          Validators.required,
+          Validators.email,
+          CustomValidators.emailDomain('gmail.com'),
+        ],
       ],
       phone: [''],
       skills: this.fb.group({
@@ -164,17 +169,17 @@ export class TestComponent implements OnInit {
 }
 
 //closures - function inside another function(inner fn has access to outer fn parameters and var in addition to its own)
-function emailDomain(domainName: string) {
-  return (control: AbstractControl): { [key: string]: any } | null => {
-    const email: string = control.value;
-    const domain = email.substring(email.lastIndexOf('@') + 1);
+// function emailDomain(domainName: string) {
+//   return (control: AbstractControl): { [key: string]: any } | null => {
+//     const email: string = control.value;
+//     const domain = email.substring(email.lastIndexOf('@') + 1);
 
-    if (email === '' || domain.toLowerCase() === domainName.toLowerCase()) {
-      return null;
-    } else {
-      return {
-        emailDomain: true,
-      };
-    }
-  };
-}
+//     if (email === '' || domain.toLowerCase() === domainName.toLowerCase()) {
+//       return null;
+//     } else {
+//       return {
+//         emailDomain: true,
+//       };
+//     }
+//   };
+// }
