@@ -32,34 +32,37 @@
         >
       </mat-radio-group>
     </div>
+
     <p>Email</p>
-    <mat-form-field appearance="fill">
-      <mat-label>Email</mat-label>
-      <input
-        formControlName="email"
-        matInput
-        type="email"
-        placeholder="Ex. pat@example.com"
-      />
-      <!-- <mat-error *ngIf="carForm.get('email').hasError('required')">
+    <div formGroupName="emailGroup">
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input
+          formControlName="email"
+          matInput
+          type="email"
+          placeholder="Ex. pat@example.com"
+        />
+        <!-- <mat-error *ngIf="carForm.get('email').hasError('required')">
         Email is <strong>required</strong>
       </mat-error>
       <mat-error *ngIf="carForm.get('email').hasError('email')">
         Email is <strong>invalid</strong>
       </mat-error> -->
-      <mat-error *ngIf="formErrors.email">
-        {{ formErrors.email }}
-      </mat-error>
-    </mat-form-field>
-    <br />
-    <p>Confirm Email</p>
-    <mat-form-field>
-      <mat-label>Confirm Email</mat-label>
-      <input formControlName="confirmEmail" matInput type="email" />
-      <mat-error *ngIf="formErrors.confirmEmail">
-        {{ formErrors.confirmEmail }}
-      </mat-error>
-    </mat-form-field>
+        <mat-error *ngIf="formErrors.email">
+          {{ formErrors.email }}
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <p>Confirm Email</p>
+      <mat-form-field>
+        <mat-label>Confirm Email</mat-label>
+        <input formControlName="confirmEmail" matInput type="email" />
+        <mat-error *ngIf="formErrors.confirmEmail">
+          {{ formErrors.confirmEmail }}
+        </mat-error>
+      </mat-form-field>
+    </div>
     <p>Phone</p>
     <div>
       <mat-form-field class="example-full-width">
@@ -130,7 +133,7 @@
 
 <div class="test2">
   <p><b>Name:</b> {{ carForm.get('name').value }}</p>
-  <p><b>Email</b>: {{ carForm.get('email').value }}</p>
+  <p><b>Email</b>: {{ carForm.get('emailGroup').value.email }}</p>
   <p>{{ carForm.value | json }}</p>
   <p>Skill: {{ this.carForm.get('skills').value.level }}</p>
 </div>

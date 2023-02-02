@@ -82,15 +82,18 @@ export class TestComponent implements OnInit {
         ],
       ],
       pref: ['email', []],
-      email: [
-        '',
-        [
-          Validators.required,
-          Validators.email,
-          CustomValidators.emailDomain('gmail.com'),
+      emailGroup: this.fb.group({
+        email: [
+          '',
+          [
+            Validators.required,
+            Validators.email,
+            CustomValidators.emailDomain('gmail.com'),
+          ],
         ],
-      ],
-      confirmEmail: ['', [Validators.required]],
+        confirmEmail: ['', [Validators.required]],
+      }),
+
       phone: [''],
       skills: this.fb.group({
         skillName: ['', [Validators.required]],
