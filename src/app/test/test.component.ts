@@ -77,7 +77,10 @@ export class TestComponent implements OnInit {
         ],
       ],
       pref: ['email', []],
-      email: ['', [Validators.required, Validators.email, emailDomain]],
+      email: [
+        '',
+        [Validators.required, Validators.email, emailDomain('gmail.com')],
+      ],
       phone: [''],
       skills: this.fb.group({
         skillName: ['', [Validators.required]],
@@ -166,7 +169,7 @@ function emailDomain(domainName: string) {
     const email: string = control.value;
     const domain = email.substring(email.lastIndexOf('@') + 1);
 
-    if (email === '' || domain.toLowerCase() === 'gmail.com') {
+    if (email === '' || domain.toLowerCase() === domainName.toLowerCase()) {
       return null;
     } else {
       return {
