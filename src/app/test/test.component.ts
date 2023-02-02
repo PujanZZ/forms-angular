@@ -120,6 +120,9 @@ export class TestComponent implements OnInit {
     });
   }
   //
+  addSkillButton(): void {
+    (<FormArray>this.carForm.get('skills')).push(this.addSkill());
+  }
 
   logErrors(grp: FormGroup): void {
     //console.log(Object.keys(grp.controls));

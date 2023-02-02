@@ -81,14 +81,22 @@
       </mat-form-field>
     </div>
     <p>Skill</p>
-    <div formArrayName="skills">
-      <div formGroupName="0">
+    <div
+      formArrayName="skills"
+      *ngFor="let skill of carForm.get('skills')['controls']; let i = index"
+    >
+      <div [formGroupName]="i">
         <div class="test3">
           <mat-form-field appearance="fill">
             <mat-label>Skill</mat-label>
             <input formControlName="skillName" matInput />
-            <mat-error *ngIf="formErrors.skillName">
-              {{ formErrors.skillName }}
+            <mat-error
+              *ngIf="
+                skill.get('skillName').errors.required &&
+                skill.get('skillName').touched
+              "
+            >
+              Skill Name is required
             </mat-error>
           </mat-form-field>
 
@@ -99,11 +107,17 @@
             *ngIf="carForm.get('skills.experienceInYears').hasError('required')"
             >Number is <strong>required</strong>
           </mat-error> -->
-            <mat-error *ngIf="formErrors.experienceInYears">
-              {{ formErrors.experienceInYears }}
+            <mat-error
+              *ngIf="
+                skill.get('experienceInYears').errors.required &&
+                skill.get('experienceInYears').touched
+              "
+            >
+              Experience is required
             </mat-error>
           </mat-form-field>
         </div>
+
         <div>
           <p>Skill Level</p>
           <mat-radio-group
@@ -115,9 +129,20 @@
             <mat-radio-button value="Hard">Hard</mat-radio-button>
           </mat-radio-group>
         </div>
+
         <br />
       </div>
     </div>
+    <button
+      mat-raised-button
+      color="warn"
+      (click)="addSkillButton()"
+      type="button"
+    >
+      Add Skill
+    </button>
+    <br />
+    <br />
     <div class="sbtn">
       <button mat-raised-button color="primary" style="margin-right: 16px">
         Submit
