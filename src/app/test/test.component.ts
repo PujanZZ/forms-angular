@@ -30,7 +30,10 @@ export class TestComponent implements OnInit {
       emailDomain: 'Domain incorrect',
     },
     confirmEmail: {
-      required: 'Required',
+      required: 'Confirm email is Required',
+    },
+    emailGroup: {
+      emailMismatch: 'Email and ConfirmEmail does not match',
     },
     phone: {
       required: 'Phone number is required',
@@ -50,6 +53,7 @@ export class TestComponent implements OnInit {
     name: '',
     email: '',
     confirmEmail: '',
+    emailGroup: '',
     phone: '',
     skillName: '',
     experienceInYears: '',
@@ -82,17 +86,20 @@ export class TestComponent implements OnInit {
         ],
       ],
       pref: ['email', []],
-      emailGroup: this.fb.group({
-        email: [
-          '',
-          [
-            Validators.required,
-            Validators.email,
-            CustomValidators.emailDomain('gmail.com'),
+      emailGroup: this.fb.group(
+        {
+          email: [
+            '',
+            [
+              Validators.required,
+              Validators.email,
+              CustomValidators.emailDomain('gmail.com'),
+            ],
           ],
-        ],
-        confirmEmail: ['', [Validators.required]],
-      }),
+          confirmEmail: ['', [Validators.required]],
+        },
+        { validator: checkEmail }
+      ),
 
       phone: [''],
       skills: this.fb.group({
@@ -114,28 +121,27 @@ export class TestComponent implements OnInit {
     //console.log(Object.keys(grp.controls));
     Object.keys(grp.controls).forEach((key: string) => {
       const abstractControl = grp.get(key);
+      this.formErrors[key] = '';
+      if (
+        abstractControl &&
+        !abstractControl.valid &&
+        (abstractControl.touched || abstractControl.dirty)
+      ) {
+        const msg = this.validationMessages[key];
+
+        //console.log(abstractControl.errors); //failed ones ,return true/false
+        //console.log(msg);
+
+        for (const errorKey in abstractControl.errors) {
+          if (errorKey) {
+            //console.log(msg[errorKey]);
+            this.formErrors[key] += msg[errorKey] + ' ';
+          }
+        }
+      }
       if (abstractControl instanceof FormGroup) {
         //to get nested formcontrol key, looping recursively
         this.logErrors(abstractControl);
-      } else {
-        this.formErrors[key] = '';
-        if (
-          abstractControl &&
-          !abstractControl.valid &&
-          (abstractControl.touched || abstractControl.dirty)
-        ) {
-          const msg = this.validationMessages[key];
-
-          //console.log(abstractControl.errors); //failed ones ,return true/false
-          //console.log(msg);
-
-          for (const errorKey in abstractControl.errors) {
-            if (errorKey) {
-              //console.log(msg[errorKey]);
-              this.formErrors[key] += msg[errorKey] + ' ';
-            }
-          }
-        }
       }
     });
   }
@@ -173,5 +179,18 @@ export class TestComponent implements OnInit {
       phoneControl.clearValidators();
     }
     phoneControl.updateValueAndValidity();
+  }
+}
+
+function checkEmail(group: AbstractControl): { [key: string]: any } | null {
+  const emailControl = group.get('email');
+  const confirmEmailControl = group.get('confirmEmail');
+
+  if (emailControl.value === confirmEmailControl.value) {
+    return null;
+  } else {
+    return {
+      emailMismatch: true,
+    };
   }
 }
